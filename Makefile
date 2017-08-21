@@ -7,7 +7,7 @@ TAG = 'develop'
 
 GUEST_PATH = '/tmp/$(REPO)'
 
-CMD_DEV = 'cd $(GUEST_PATH) && /bin/bash start-service.sh && /bin/bash'
+CMD_DEV = 'cd $(GUEST_PATH) && /bin/bash'
 CMD_TEST = 'cd $(GUEST_PATH) && /bin/bash run-test.sh'
 
 HOST_PORT ?= 80
