@@ -1,5 +1,7 @@
 FROM python:3.5
 
+RUN apt-get update
+
 # Gym                                                                           
 RUN apt-get install -y python-opengl
 RUN apt-get install -y xvfb
@@ -17,8 +19,9 @@ RUN python -c "import nltk; nltk.download('punkt')"
 RUN python -c "import nltk; nltk.download('stopwords')"
 
 # install vim for later editing
-RUN apt-get update
 RUN apt-get install -y vim
+
+# other tools
 RUN apt-get install -y psmisc
 
 COPY .vimrc /root
