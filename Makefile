@@ -5,7 +5,7 @@ REPO = $(shell echo $(REPO_ORG) | tr A-Z a-z)
 
 TAG = 'develop'
 
-GUEST_PATH = '/tmp/$(REPO)'
+GUEST_PATH = '/data/$(REPO)'
 
 CMD_DEV = 'cd $(GUEST_PATH) && /bin/bash'
 CMD_TEST = 'cd $(GUEST_PATH) && /bin/bash run-test.sh'

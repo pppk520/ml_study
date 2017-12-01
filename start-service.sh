@@ -1,1 +1,1 @@
-jupyter notebook --allow-root --ip=0.0.0.0 --port=80
+jupyter notebook --ip=0.0.0.0 --port=80
