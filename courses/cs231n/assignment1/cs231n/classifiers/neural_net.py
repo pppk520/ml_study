@@ -76,7 +76,17 @@ class TwoLayerNet(object):
     # Store the result in the scores variable, which should be an array of      #
     # shape (N, C).                                                             #
     #############################################################################
-    pass
+
+    # FC 1
+    fc_1 = np.dot(X, W1) + b1
+    # relu
+    fc_1[fc_1 < 0] = 0
+    relu_1 = fc1
+    # FC 2
+    fc_2 = np.dot(relu_1, W2) + b2
+
+    scores = fc_2
+
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
@@ -93,7 +103,16 @@ class TwoLayerNet(object):
     # in the variable loss, which should be a scalar. Use the Softmax           #
     # classifier loss.                                                          #
     #############################################################################
-    pass
+
+    softmax_scores = np.exp(scores) / np.sum(np.exp(scores), axis=1)[..., np.newaxis]
+    correct_class_scores = np.choose(y, scores.T)
+    loss = -correct_class_scores + np.log(np.sum(np.exp(scores), axis=1))
+    loss = np.sum(loss)
+
+    # Regularization
+    loss /= N
+    loss += reg * (np.sum(W1*W1) + np.sum(W2*W2) + np.sum(b1*b1) + np.sum(b2*b2))
+
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
@@ -105,7 +124,19 @@ class TwoLayerNet(object):
     # and biases. Store the results in the grads dictionary. For example,       #
     # grads['W1'] should store the gradient on W1, and be a matrix of same size #
     #############################################################################
-    pass
+
+    dSoft = softmax_scores
+    dSoft[range(N), y] -= 1
+    dSoft /= N
+
+    dW2 = np.dot(relu_1.T, dSoft)
+    dW2 += 2 * reg * W2
+    grads['W2'] = dW2
+
+    db2 = dSoft * 1
+    grads['b2'] = np.sum(db2, axis=0)
+
+
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
